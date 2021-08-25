@@ -1,7 +1,8 @@
 function! textobj#cursor_context#select_a()
   let start_line_num = -1
   let end_line_num = line('$')
-  let [_, current_line_num, current_col, _] = getpos('.')
+  let [_, current_line_num, col, off] = getpos('.')
+  let current_col = col + off
 
   let i = current_line_num
   let line = getline(i)
@@ -51,7 +52,8 @@ endfunction
 function! textobj#cursor_context#select_i()
   let start_line_num = -1
   let end_line_num = line('$')
-  let [_, current_line_num, current_col, _] = getpos('.')
+  let [_, current_line_num, col, off] = getpos('.')
+  let current_col = col + off
 
   let i = current_line_num
   let line = getline(i)
