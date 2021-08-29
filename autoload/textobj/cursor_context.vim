@@ -3,16 +3,18 @@ function! textobj#cursor_context#select_a()
   let end_line_num = line('$')
   let [_, current_line_num, col, off] = getpos('.')
   let current_col = col + off
+  let line_head = len(matchstr(getline('.')[0 : col('.') - 2], '^\s*'))
+  let target_col = current_col > line_head ? line_head - 1 : current_col
 
   let i = current_line_num
   let line = getline(i)
   let prev_line = getline(i - 1)
 
-  if line[current_col - 1] =~# '\s' || prev_line[current_col - 1] =~# '\s'
+  if line[target_col - 1] =~# '\s' || prev_line[target_col - 1] =~# '\s'
     let i = i - 1
     while i >= 0
       let line = getline(i)
-      if line[current_col - 1] =~# '\s' || line[current_col - 1] ==# ''
+      if line[target_col - 1] =~# '\s' || line[target_col - 1] ==# ''
         let i = i - 1
       else
         let start_line_num = i
@@ -27,11 +29,11 @@ function! textobj#cursor_context#select_a()
   let line = getline(i)
   let next_line = getline(i + 1)
 
-  if line[current_col - 1] =~# '\s' || next_line[current_col - 1] =~# '\s'
+  if line[target_col - 1] =~# '\s' || next_line[target_col - 1] =~# '\s'
     let i = i + 1
     while i <= end_line_num
       let line = getline(i)
-      if line[current_col - 1] =~# '\s' || line[current_col - 1] ==# ''
+      if line[target_col - 1] =~# '\s' || line[target_col - 1] ==# ''
         let i = i + 1
       else
         let end_line_num = i
@@ -54,16 +56,18 @@ function! textobj#cursor_context#select_i()
   let end_line_num = line('$')
   let [_, current_line_num, col, off] = getpos('.')
   let current_col = col + off
+  let line_head = len(matchstr(getline('.')[0 : col('.') - 2], '^\s*'))
+  let target_col = current_col > line_head ? line_head - 1 : current_col
 
   let i = current_line_num
   let line = getline(i)
   let prev_line = getline(i - 1)
 
-  if line[current_col - 1] =~# '\s' || prev_line[current_col - 1] =~# '\s'
+  if line[target_col - 1] =~# '\s' || prev_line[target_col - 1] =~# '\s'
     let i = i - 1
     while i >= 0
       let line = getline(i)
-      if line[current_col - 1] =~# '\s' || line[current_col - 1] ==# ''
+      if line[target_col - 1] =~# '\s' || line[target_col - 1] ==# ''
         let i = i - 1
       else
         let start_line_num = i
@@ -78,11 +82,11 @@ function! textobj#cursor_context#select_i()
   let line = getline(i)
   let next_line = getline(i + 1)
 
-  if line[current_col - 1] =~# '\s' || next_line[current_col - 1] =~# '\s'
+  if line[target_col - 1] =~# '\s' || next_line[target_col - 1] =~# '\s'
     let i = i + 1
     while i <= end_line_num
       let line = getline(i)
-      if line[current_col - 1] =~# '\s' || line[current_col - 1] ==# ''
+      if line[target_col - 1] =~# '\s' || line[target_col - 1] ==# ''
         let i = i + 1
       else
         let end_line_num = i
