@@ -1,4 +1,6 @@
-function! textobj#cursor_context#select_a()
+function! textobj#cursor_context#select_a() abort
+  normal! m`
+
   let start_line_num = -1
   let end_line_num = line('$')
   let [_, current_line_num, col, off] = getpos('.')
@@ -51,7 +53,9 @@ function! textobj#cursor_context#select_a()
   return ['v', [0, start_line_num, 1, 0], [0, end_line_num, len(getline(end_line_num)) + 1, 0]]
 endfunction
 
-function! textobj#cursor_context#select_i()
+function! textobj#cursor_context#select_i() abort
+  normal! m`
+
   let start_line_num = -1
   let end_line_num = line('$')
   let [_, current_line_num, col, off] = getpos('.')
